@@ -48,30 +48,35 @@ var giphyAPI = {
   }
 };
 
-var gifToggle = () => {
+var gifToggle = (e) => {
   console.log("Called Gif Toggle");
+  console.log(e);
 };
 
-var addCategory = () => {
-  console.log("Called Add Category");
+var addCategory = input => {
+  catButton = $(
+    '<button type="button" class="category-button btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"></button>'
+  );
+  $(catButton).text(input);
+  $("#cat-buttons").append(catButton);
 };
 
 $(document).ready(function() {
   showCategories();
-  $(".category-button").on("click", function(e) {
+  $(document).on("click", ".category-button", function(e) {
     e.preventDefault();
     category = $(this).text();
     giphyAPI.getGifs(category);
   });
   $("#submit-button").on("click", function(e) {
     e.preventDefault();
-    addCategory();
+    input = $("#add-category").val();
+    addCategory(input);
   });
   $(document).on("click", "img", function(e) {
     e.preventDefault();
-    gifToggle();
+    gifToggle(e);
   });
 });
 
-// add to the categories from the submit form
 // toggle still and animate on click
