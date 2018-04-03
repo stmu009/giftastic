@@ -48,11 +48,6 @@ var giphyAPI = {
   }
 };
 
-var gifToggle = (e) => {
-  console.log("Called Gif Toggle");
-  console.log(e);
-};
-
 var addCategory = input => {
   catButton = $(
     '<button type="button" class="category-button btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"></button>'
@@ -75,8 +70,16 @@ $(document).ready(function () {
   });
   $(document).on("click", "img", function (e) {
     e.preventDefault();
-    gifToggle(e);
+    dataState=$(this).attr('data-state');
+    dataActive=$(this).attr('data-active');
+    dataStill=$(this).attr('data-still');
+    if (dataState === 'active') {
+      $(this).attr('src', dataStill);
+      $(this).attr('data-state', 'still');
+    }
+    if (dataState === 'still') {
+      $(this).attr('src', dataActive);
+      $(this).attr('data-state', 'active');
+    }
   });
 });
-
-// toggle still and animate on click
