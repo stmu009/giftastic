@@ -17,7 +17,7 @@ var giphyAPI = {
   host: "https://api.giphy.com",
   path: "/v1/gifs/search",
   limit: 10,
-  getGifs: function(category) {
+  getGifs: function (category) {
     let queryTerm = escape(category);
     let url =
       this.host +
@@ -28,11 +28,11 @@ var giphyAPI = {
       queryTerm +
       "&limit=" +
       this.limit;
-    $.getJSON(url, function(response) {
+    $.getJSON(url, function (response) {
       giphyAPI.showGifs(response);
     });
   },
-  showGifs: function(response) {
+  showGifs: function (response) {
     for (const key in response.data) {
       const originalUrl = response.data[key].images.original_still.url;
       const activeUrl = response.data[key].images.original.url;
@@ -61,19 +61,19 @@ var addCategory = input => {
   $("#cat-buttons").append(catButton);
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
   showCategories();
-  $(document).on("click", ".category-button", function(e) {
+  $(document).on("click", ".category-button", function (e) {
     e.preventDefault();
     category = $(this).text();
     giphyAPI.getGifs(category);
   });
-  $("#submit-button").on("click", function(e) {
+  $("#submit-button").on("click", function (e) {
     e.preventDefault();
     input = $("#add-category").val();
     addCategory(input);
   });
-  $(document).on("click", "img", function(e) {
+  $(document).on("click", "img", function (e) {
     e.preventDefault();
     gifToggle(e);
   });
